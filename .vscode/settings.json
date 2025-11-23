@@ -1,0 +1,6 @@
+{
+  "workbench.sideBar.location": "right",
+  "terminal.integrated.fontSize": 16,
+  "terminal.integrated.fontFamily": "Menlo, Monaco, 'Courier New', monospace",
+  "workbench.panel.defaultLocation": "bottom"
+}
