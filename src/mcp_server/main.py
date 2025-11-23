@@ -1,6 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 import os
 
 from .config import settings
@@ -9,7 +9,7 @@ from . import db
 
 class QueryRequest(BaseModel):
     sql: str
-    params: Dict[str, Any] | None = None
+    params: Optional[Dict[str, Any]] = None
 
 
 app = FastAPI(title="MCP FastAPI Server", version="0.1")

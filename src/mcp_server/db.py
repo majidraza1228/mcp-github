@@ -1,10 +1,10 @@
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncEngine, AsyncConnection
 from sqlalchemy import text
 from sqlalchemy import inspect
 from .config import settings
 
-engine: AsyncEngine | None = None
+engine: Optional[AsyncEngine] = None
 
 
 def get_engine() -> AsyncEngine:
@@ -27,7 +27,7 @@ async def list_tables() -> List[str]:
         return tables
 
 
-async def run_read_query(sql: str, params: Dict[str, Any] | None = None) -> List[Dict[str, Any]]:
+async def run_read_query(sql: str, params: Optional[Dict[str, Any]] = None) -> List[Dict[str, Any]]:
     eng = get_engine()
     async with eng.connect() as conn:
         result = await conn.execute(text(sql), params or {})
@@ -35,7 +35,7 @@ async def run_read_query(sql: str, params: Dict[str, Any] | None = None) -> List
         return [dict(r) for r in rows]
 
 
-async def run_write_query(sql: str, params: Dict[str, Any] | None = None) -> Dict[str, Any]:
+async def run_write_query(sql: str, params: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
     eng = get_engine()
     async with eng.begin() as conn:
         result = await conn.execute(text(sql), params or {})
